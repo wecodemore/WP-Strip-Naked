@@ -1,0 +1,29 @@
+h2. WP Strip Naked
+
+**Version: _v0.1_**
+
+Strips down WP to it's bare essentials. Removes everything that's not needed to be in place if you use WP as a CMS. This way you can easily check if you should fix links before deleting a post. There are no options needed. The plugin works out of the box - **just activate**!
+
+----------------------------------------------------------------
+
+h3. Example
+
+No examples needed - works out of the box.
+
+h3. Stylesheets
+
+Not needed.
+
+h3. Languages
+
+Not needed.
+
+h4. Authors
+
+visit "Franz Josef Kaiser":https://unserkaiser.com/ at his blog | or "at his Github Account":https://github.com/franz-josef-kaiser | or "get social at G+":https://plus.google.com/u/0/107110219316412982437
+
+----------------------------------------------------------------
+
+h4. Changelog
+
+* _v0.1_ First version - Draft
