@@ -1,3 +1,5 @@
+<img title="WP Strip Naked Logo" src="https://github.com/franz-josef-kaiser/WP-Strip-Naked/raw/master/strip-naked-logo.png" />
+
 h2. WP Strip Naked
 
 **Version: _v0.1_ (Draft)**
@@ -5,8 +7,6 @@ h2. WP Strip Naked
 Strips down WP to it's bare essentials. Removes everything that's not needed to be in place if you use WP as a CMS. There are no options needed. The plugin works out of the box - **just activate**!
 
 ----------------------------------------------------------------
-
-<img title="WP Strip Naked Logo" src="https://github.com/franz-josef-kaiser/WP-Strip-Naked/raw/master/strip-naked-logo.png" />
 
 h3. Functionality
 
