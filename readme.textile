@@ -2,13 +2,29 @@ h2. WP Strip Naked
 
 **Version: _v0.1_**
 
-Strips down WP to it's bare essentials. Removes everything that's not needed to be in place if you use WP as a CMS. This way you can easily check if you should fix links before deleting a post. There are no options needed. The plugin works out of the box - **just activate**!
+Strips down WP to it's bare essentials. Removes everything that's not needed to be in place if you use WP as a CMS. There are no options needed. The plugin works out of the box - **just activate**!
 
 ----------------------------------------------------------------
 
+<img title="WP Strip Naked Logo" href="https://github.com/franz-josef-kaiser/WP-Strip-Naked/strip-naked-logo.png" />
+
+h3. Functionality
+
+The Plugin removes:
+
+ * All Dashboard Widgets except for "Incoming Links"
+ * All built in taxonomies and leaves only the "nav-menu" taxonomy
+ * The built in post type "Post"
+ * Changes the option "show on front" to "pages"
+ * Changes the initial posts query to search for the page with the lowest ID
+ * All admin bar items and leaves only the site name that can be used to access the public view
+ * Admin Menu items and submenu items: Posts, Links, Comments
+ * The admin menu items for Plugin & Theme Editor
+ * All Settings admin menu items and replaces them with the "All Settings" Page and makes it only accessible for 'manage_options' capability
+
 h3. Example
 
-No examples needed - works out of the box.
+Not needed.
 
 h3. Stylesheets
 
@@ -21,6 +37,10 @@ Not needed.
 h4. Authors
 
 visit "Franz Josef Kaiser":https://unserkaiser.com/ at his blog | or "at his Github Account":https://github.com/franz-josef-kaiser | or "get social at G+":https://plus.google.com/u/0/107110219316412982437
+
+h4. Screenshot
+
+<img title="WP Strip Naked Logo" href="https://github.com/franz-josef-kaiser/WP-Strip-Naked/screenshot-1.jpg" />
 
 ----------------------------------------------------------------
 
