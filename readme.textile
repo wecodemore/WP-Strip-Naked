@@ -6,7 +6,7 @@ Strips down WP to it's bare essentials. Removes everything that's not needed to 
 
 ----------------------------------------------------------------
 
-<img title="WP Strip Naked Logo" href="https://github.com/franz-josef-kaiser/WP-Strip-Naked/strip-naked-logo.png" />
+<img title="WP Strip Naked Logo" href="https://github.com/franz-josef-kaiser/WP-Strip-Naked/raw/master/strip-naked-logo.png" />
 
 h3. Functionality
 
@@ -40,7 +40,7 @@ visit "Franz Josef Kaiser":https://unserkaiser.com/ at his blog | or "at his Git
 
 h4. Screenshot
 
-<img title="WP Strip Naked Logo" href="https://github.com/franz-josef-kaiser/WP-Strip-Naked/screenshot-1.jpg" />
+<img title="Stripped admin UI" href="https://github.com/franz-josef-kaiser/WP-Strip-Naked/raw/master/screenshot-1.jpg" />
 
 ----------------------------------------------------------------
 
