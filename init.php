@@ -88,9 +88,9 @@ class WP_Strip_Naked
 
 	public function __construct()
 	{
-		remove_filter( 'the_content', 'capital_P_dangit' );
-		remove_filter( 'the_title', 'capital_P_dangit' );
-		remove_filter( 'comment_text', 'capital_P_dangit' );
+		remove_filter( 'the_title', 'capital_P_dangit', 11 );
+		remove_filter( 'the_content', 'capital_P_dangit', 11 );
+		remove_filter( 'comment_text', 'capital_P_dangit', 31 );
 
 		add_action( 'init', array( &$this, 'taxonomies' ) );
 		add_action( 'init', array( &$this, 'post_types' ) );

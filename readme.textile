@@ -21,6 +21,7 @@ The Plugin removes:
  * Admin Menu items and submenu items: Posts, Links, Comments
  * The admin menu items for Plugin & Theme Editor
  * All Settings admin menu items and replaces them with the "All Settings" Page and makes it only accessible for 'manage_options' capability
+ * Removes the "capitalPdangit" filter from content, title and comment text, in case you add those filter in CPT related stuff
 
 h3. Example
 
