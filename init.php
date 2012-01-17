@@ -3,9 +3,11 @@
  * Plugin Name: WP Strip Naked
  * Plugin URI: http://
  * Description: Strips WordPress built in stuff down to it's bare essentials
- * Version: 0.1
+ * Version: 0.3
  * Author: Franz Josef Kaiser
  * Author URI: http://unserkaiser.com
+ * Text Domain: wp_stip_naked
+ * Domain Path: /lang
  *
  * 
  * This program is free software; you can redistribute it and/or modify it under the terms of the GNU 
@@ -17,7 +19,7 @@
  */
 
 // Prevent loading this file directly - Busted!
-if( ! class_exists('WP') ) 
+if ( ! class_exists('WP') ) 
 {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
@@ -29,40 +31,19 @@ if( ! class_exists('WP') )
 if ( ! class_exists( 'WP_Strip_Naked' ) )
 {
 	/**
-	 * On activate
-	 * Sets the lowest page ID as front post
-	 * 
-	 * @since 0.1
-	 * 
-	 * @return void
-	 */
-	function wpsn_on_activate()
-	{
-		$index_cpt = get_option( 'show_on_front' );
-
-		if ( 'pages' !== $index_cpt )
-		{
-			update_option( 'show_on_front', 'pages' );
-
-			$index_id = get_option( 'page_on_front' );
-			$page = get_posts( array(
-				 'numberposts'	=> 1
-				,'orderby'		=> 'ID'
-				,'order'		=> 'ASC'
-				,'post_type'	=> 'page'
-			) );
-			if ( $page->ID !== $index_id )
-				update_option( 'page_on_front', $page->ID );
-		}
-	}
-	register_activation_hook( __FILE__, 'wpsn_on_activate' );
-
-	/**
-	 * INIT PLUGIN
+	 * SETUP & INIT PLUGIN
 	 * Triggers on the "plugins_loaded" hook, as "muplugins_loaded" is too early
 	 */
 	if ( function_exists( 'add_action' ) )
+	{
+		// Setup
+		include_once plugin_dir_path( __FILE__ ).'setup.php';
+		register_uninstall_hook( __FILE__, array( 'WP_Strip_Naked_Setup', 'on_uninstall' ) );
+		register_activation_hook( __FILE__, array( 'WP_Strip_Naked_Setup','on_activate' ) );
+
+		// INIT
 		add_action( 'plugins_loaded', array( 'WP_Strip_Naked', 'init' ) );
+	}
 
 /**
  * Strip all of WP down to naked
@@ -76,6 +57,15 @@ if ( ! class_exists( 'WP_Strip_Naked' ) )
 class WP_Strip_Naked
 {
 	/**
+	 * Container for Plugin Settings
+	 * 
+	 * @since 0.3
+	 * @var
+	 */
+	public $options;
+
+
+	/**
 	 * Handler for the action 'init'. Instantiates this class.
 	 * @return void
 	 */
@@ -88,6 +78,8 @@ class WP_Strip_Naked
 
 	public function __construct()
 	{
+		$this->setup_options();
+
 		remove_filter( 'the_title', 'capital_P_dangit', 11 );
 		remove_filter( 'the_content', 'capital_P_dangit', 11 );
 		remove_filter( 'comment_text', 'capital_P_dangit', 31 );
@@ -102,10 +94,64 @@ class WP_Strip_Naked
 		add_action( 'wp_dashboard_setup', array( &$this, 'dashboard_widgets' ) );
 
 		add_filter( 'admin_footer_text', '__return_false' );
-		add_filter( 'update_footer', '__return_false' );
+		add_filter( 'update_footer', '__return_false', 11 );
+
+		add_action( 'init', array( &$this, 'feed' ) );
+
+		add_action( 'admin_print_styles-options.php', array( &$this, 'styles' ), 20 );
+		add_action( 'all_admin_notices', array( &$this, 'note' ), 20 );
 
 		# add_filter( 'page_template', array( &$this, 'page_template' ), 10, 1 );
 		# add_filter( 'comments_popup_template', array( &$this, 'comments_popup_template' ), 10, 1 );
+	}
+
+
+	public function setup_options()
+	{
+		$this->options['feed']	= get_option( 'strip_feed' );
+		$this->options['pages']	= get_option( 'strip_pages' );
+	}
+
+
+	/**
+	 * Adds a new "WP Strip Naked" Settings Section above the all settings page
+	 * 
+	 * @since 0.3
+	 * 
+	 * @return string $html;
+	 */
+	public function note()
+	{
+		global $pagenow;
+
+		if ( 'options.php' !== $pagenow )
+			return;
+
+		// Add new separate Strip Settings section
+		screen_icon();
+		$html  = '<div class="wrap"><h2>';
+		$html .= __( 'WP Strip Naked Settings', '' );
+		$html .= '</h2>';
+ 		$html .= "<p>";
+		$html .= sprintf( __( 'Plugin settings are highlighted in %sblue', '' ), '<span id="strip_note">' );
+		$html .= "</span>.</p>";
+
+		print $html;
+	}
+
+
+	/**
+	 * Adds a Note to the strip settings section
+	 * 
+	 * @since 0.3
+	 * 
+	 * @return void
+	 */
+	public function styles()
+	{
+		echo "
+<style type='text/css' media='screen'>#strip_note, #strip_feed, #strip_pages { color:#fff;background:#009ee0; }</style>
+		";
 	}
 
 
@@ -154,7 +200,9 @@ class WP_Strip_Naked
 		global $wp_post_types;
 
 		unset( $wp_post_types['post'] );
-		# unset( $wp_post_types['page'] );
+
+		if ( 1 != $this->options['pages'] )
+			unset( $wp_post_types['page'] );
 	}
 
 
@@ -206,7 +254,8 @@ class WP_Strip_Naked
 			remove_submenu_page( 'link-manager.php', 'edit-tags.php?taxonomy=link_category' );
 
 			// Add New Page
-			# remove_submenu_page( 'edit.php?post_type=page', 'post-new.php?post_type=page' );
+			if ( 1 != $this->options['pages'] )
+				remove_submenu_page( 'edit.php?post_type=page', 'post-new.php?post_type=page' );
 
 			// Theme Editor
 			remove_submenu_page( 'themes.php', 'theme-editor.php' );
@@ -235,7 +284,8 @@ class WP_Strip_Naked
 			// Links
 			remove_menu_page( 'link-manager.php' );
 			// Pages
-			# remove_menu_page( 'edit.php?post_type=page' );
+			if ( 1 != $this->options['pages'] )
+				remove_menu_page( 'edit.php?post_type=page' );
 			// Comments
 			remove_menu_page( 'edit-comments.php' );
 		# <<<< Main menu items
@@ -282,6 +332,47 @@ class WP_Strip_Naked
 		remove_meta_box( 'dashboard_recent_drafts',		'dashboard', 'side' );
 		remove_meta_box( 'dashboard_primary',			'dashboard', 'side' );
 		remove_meta_box( 'dashboard_secondary',			'dashboard', 'side' );
+	}
+
+
+	/**
+	 * Disables the feed on demand
+	 * 
+	 * @since 0.3
+	 * 
+	 * @return void
+	 */
+	public function feed()
+	{
+		if ( 1 != $this->options['feed'] )
+			return;
+
+		add_action( 'do_feed',		'disable_feed_cb', 1 );
+		add_action( 'do_feed_rdf',	'disable_feed_cb', 1 );
+		add_action( 'do_feed_rss',	'disable_feed_cb', 1 );
+		add_action( 'do_feed_rss2',	'disable_feed_cb', 1 );
+		add_action( 'do_feed_atom',	'disable_feed_cb', 1 );
+	}
+
+
+	/**
+	 * Callback fn to disable the feed 
+	 * Replaces it with a notice to visit the site
+	 * 
+	 * @since 0.2
+	 * 
+	 * @return void
+	 */
+	function disable_feed_cb() 
+	{
+		$url = get_bloginfo( 'url' );
+		wp_die( 
+			 sprintf( 
+			 	 __( 'Please visit our %s.' )
+			 	,"<a href='{$url}'>site</a>" 
+			 )
+			,__( 'No Feed available' ) 
+		);
 	}
 }
 

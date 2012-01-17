@@ -2,7 +2,7 @@
 
 h2. WP Strip Naked
 
-**Version: _v0.1_ (Draft)**
+**Version: _v0.3_**
 
 Strips down WP to it's bare essentials. Removes everything that's not needed to be in place if you use WP as a CMS. There are no options needed. The plugin works out of the box - **just activate**!
 
@@ -23,13 +23,10 @@ The Plugin removes:
  * All Settings admin menu items and replaces them with the "All Settings" Page and makes it only accessible for 'manage_options' capability
  * Removes the "capitalPdangit" filter from content, title and comment text, in case you add those filter in CPT related stuff
 
-h3. Example
+h3. How-To
 
-Not needed.
-
-h3. Stylesheets
-
-Not needed.
+You can now remove the "Feeds" and "Pages" post type with switching 0/1 on the "All Settings" page.
+Plugin Settings fields are highlighted in blue.
 
 h3. Languages
 
@@ -48,3 +45,5 @@ h4. Screenshot
 h4. Changelog
 
 * _v0.1_ First version - Draft
+* _v0.2_ Removes feed
+* _v0.3_ Adds Settings, removes Feed & Pages on demand. New (De-)Activate/Uninstall Class
