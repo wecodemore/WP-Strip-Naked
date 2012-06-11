@@ -3,10 +3,10 @@
  * Plugin Name: WP Strip Naked
  * Plugin URI: http://
  * Description: Strips WordPress built in stuff down to it's bare essentials
- * Version: 0.3
+ * Version: 0.5
  * Author: Franz Josef Kaiser
  * Author URI: http://unserkaiser.com
- * Text Domain: wp_stip_naked
+ * Text Domain: wp_strip_naked
  * Domain Path: /lang
  *
  * 
@@ -19,12 +19,7 @@
  */
 
 // Prevent loading this file directly - Busted!
-if ( ! class_exists('WP') ) 
-{
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit;
-}
+! defined( 'ABSPATH' ) AND exit;
 
 
 
@@ -80,26 +75,24 @@ class WP_Strip_Naked
 	{
 		$this->setup_options();
 
-		remove_filter( 'the_title', 'capital_P_dangit', 11 );
-		remove_filter( 'the_content', 'capital_P_dangit', 11 );
-		remove_filter( 'comment_text', 'capital_P_dangit', 31 );
+		add_action( 'init', array( $this, 'capital_p_bangit' ) );
 
-		add_action( 'init', array( &$this, 'taxonomies' ) );
-		add_action( 'init', array( &$this, 'post_types' ) );
+		add_action( 'init', array( $this, 'taxonomies' ) );
+		add_action( 'init', array( $this, 'post_types' ) );
 
-		add_action( 'wp_before_admin_bar_render',  array( &$this, 'admin_bar' ) );
+		add_action( 'wp_before_admin_bar_render',  array( $this, 'admin_bar' ) );
 
-		add_filter( 'parent_file', array( &$this, 'admin_menu' ) );
+		add_filter( 'parent_file', array( $this, 'admin_menu' ) );
 
-		add_action( 'wp_dashboard_setup', array( &$this, 'dashboard_widgets' ) );
+		add_action( 'wp_dashboard_setup', array( $this, 'dashboard_widgets' ) );
 
 		add_filter( 'admin_footer_text', '__return_false' );
 		add_filter( 'update_footer', '__return_false', 11 );
 
-		add_action( 'init', array( &$this, 'feed' ) );
+		add_action( 'init', array( $this, 'feed' ) );
 
-		add_action( 'admin_print_styles-options.php', array( &$this, 'styles' ), 20 );
-		add_action( 'all_admin_notices', array( &$this, 'note' ), 20 );
+		add_action( 'admin_print_styles-options.php', array( $this, 'styles' ), 20 );
+		add_action( 'all_admin_notices', array( $this, 'note' ), 20 );
 
 		# add_filter( 'page_template', array( &$this, 'page_template' ), 10, 1 );
 		# add_filter( 'comments_popup_template', array( &$this, 'comments_popup_template' ), 10, 1 );
@@ -110,6 +103,21 @@ class WP_Strip_Naked
 	{
 		$this->options['feed']	= get_option( 'strip_feed' );
 		$this->options['pages']	= get_option( 'strip_pages' );
+	}
+
+
+	/**
+	 * Remove the Wordpress > WordPress filter
+	 * 
+	 * @since 0.4
+	 * 
+	 * @return void
+	 */
+	public function capital_p_bangit()
+	{
+		remove_filter( 'the_title', 'capital_P_dangit', 11 );
+		remove_filter( 'the_content', 'capital_P_dangit', 11 );
+		remove_filter( 'comment_text', 'capital_P_dangit', 31 );
 	}
 
 
@@ -150,7 +158,13 @@ class WP_Strip_Naked
 	public function styles()
 	{
 		echo "
-<style type='text/css' media='screen'>#strip_note, #strip_feed, #strip_pages { color:#fff;background:#009ee0; }</style>
+<style type='text/css' media='screen'>
+#strip_note,
+#strip_feed,
+#strip_pages {
+	color:#fff;background:#009ee0;
+}
+</style>
 		";
 	}
 
@@ -238,9 +252,10 @@ class WP_Strip_Naked
 	 * 
 	 * @since 0.1
 	 * 
-	 * @return void
+	 * @param string $parent_file
+	 * @return string $parent_file
 	 */
-	public function admin_menu()
+	public function admin_menu( $parent_file )
 	{
 		global $menu, $submenu;
 
@@ -310,6 +325,8 @@ class WP_Strip_Naked
 		}
 		// Sort
 		sort( $submenu[ 'options-general.php' ] );
+
+		return $parent_file;
 	}
 
 

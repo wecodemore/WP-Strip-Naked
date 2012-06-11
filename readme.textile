@@ -2,7 +2,7 @@
 
 h2. WP Strip Naked
 
-**Version: _v0.3_**
+**Version: _v0.5_**
 
 Strips down WP to it's bare essentials. Removes everything that's not needed to be in place if you use WP as a CMS. There are no options needed. The plugin works out of the box - **just activate**!
 
@@ -44,6 +44,9 @@ h4. Screenshot
 
 h4. Changelog
 
-* _v0.1_ First version - Draft
-* _v0.2_ Removes feed
+* _v0.5_ Removed PHP 4 compatibility. Moved single filters to a function. Fixed a small bug.
+* _v0.4_ Move Capital P Dangit filters to a single function
+* _v0.3.1_ Bug fixes: Textdomain string
 * _v0.3_ Adds Settings, removes Feed & Pages on demand. New (De-)Activate/Uninstall Class
+* _v0.2_ Removes feed
+* _v0.1_ First version - Draft
