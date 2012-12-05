@@ -94,8 +94,8 @@ class WP_Strip_Naked
 		add_action( 'admin_print_styles-options.php', array( $this, 'styles' ), 20 );
 		add_action( 'all_admin_notices', array( $this, 'note' ), 20 );
 
-		# add_filter( 'page_template', array( &$this, 'page_template' ), 10, 1 );
-		# add_filter( 'comments_popup_template', array( &$this, 'comments_popup_template' ), 10, 1 );
+		# add_filter( 'page_template', array( $this, 'page_template' ), 10, 1 );
+		# add_filter( 'comments_popup_template', array( $this, 'comments_popup_template' ), 10, 1 );
 	}
 
 
