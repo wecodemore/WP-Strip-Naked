@@ -1,33 +1,22 @@
 <?php
-// Prevent loading this file directly - Busted!
-if ( ! class_exists('WP') ) 
-{
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit;
-}
-
-
-
-if ( ! class_exists('WP_Strip_Naked_Setup' ) )
-{
+defined( 'ABSPATH' ) OR exit;
 
 /**
  * This class triggers functions that run during activation/deactivation & uninstallation
- * 
+ *
  * @author Franz Josef Kaiser
  * @package WP Strip Naked
  * @subpackage Setup
  * @license GNU GPL v2
- * 
+ *
  * @link http://wordpress.stackexchange.com/a/25979/385 Based on my tutorial on WPSE
  */
 class WP_Strip_Naked_Setup
 {
 	/**
-	 * Set this to true to get the state of origin, 
+	 * Set this to true to get the state of origin,
 	 * so you don't need to always uninstall during development.
-	 * 
+	 *
 	 * @param boolean
 	 */
 	const STATE_OF_ORIGIN = false;
@@ -45,12 +34,12 @@ class WP_Strip_Naked_Setup
 				add_action( 'init', array( &$this, 'activate_cb' ) );
 				break;
 
-			case 'deactivate' : 
+			case 'deactivate' :
 				// Reset the options
 				# add_action( 'init', array( &$this, 'deactivate_cb' ) );
 				break;
 
-			case 'uninstall' : 
+			case 'uninstall' :
 				// Delete the options & clean the tables
 				add_action( 'init', array( &$this, 'uninstall_cb' ) );
 				break;
@@ -61,9 +50,9 @@ class WP_Strip_Naked_Setup
 	/**
 	 * Set up tables, add options, etc.
 	 * All preparation that only needs to be done once
-	 * 
+	 *
 	 * @since 0.3
-	 * 
+	 *
 	 * @return void
 	 */
 	public function on_activate()
@@ -75,9 +64,9 @@ class WP_Strip_Naked_Setup
 	/**
 	 * Deactivate
 	 * @internal If the class constant is set to true, uninstall gets triggered instead
-	 * 
+	 *
 	 * @since 0.3
-	 * 
+	 *
 	 * @return void
 	 */
 	public function on_deactivate()
@@ -90,9 +79,9 @@ class WP_Strip_Naked_Setup
 
 	/**
 	 * Uninstall
-	 * 
+	 *
 	 * @since 0.3
-	 * 
+	 *
 	 * @return void
 	 */
 	public function on_uninstall()
@@ -108,9 +97,9 @@ class WP_Strip_Naked_Setup
 	/**
 	 * On activate
 	 * Sets the lowest page ID as front post
-	 * 
+	 *
 	 * @since 0.1 | 0.3 moved into this class
-	 * 
+	 *
 	 * @return void
 	 */
 	public function activate_cb()
@@ -137,9 +126,9 @@ class WP_Strip_Naked_Setup
 
 	/**
 	 * Deactivate
-	 * 
+	 *
 	 * @since 0.3
-	 * 
+	 *
 	 * @return void
 	 */
 	public function deactivate_cb()
@@ -154,9 +143,9 @@ class WP_Strip_Naked_Setup
 	/**
 	 * On uninstall
 	 * Removes all set options
-	 * 
+	 *
 	 * @since 0.3
-	 * 
+	 *
 	 * @return void
 	 */
 	public function uninstall_cb()
@@ -178,28 +167,26 @@ class WP_Strip_Naked_Setup
 
 	/**
 	 * trigger_error()
-	 * 
+	 *
 	 * @since 0.3
-	 * 
+	 *
 	 * @param (string) $error_msg
 	 * @param (boolean) $fatal_error | catched a fatal error - when we exit, then we can't go further than this point
 	 * @param unknown_type $error_type
-	 * 
+	 *
 	 * @return void
 	 */
 	public function error( $error_msg, $fatal_error = false, $error_type = E_USER_ERROR )
 	{
-		if ( isset( $_GET['action'] ) && 'error_scrape' == $_GET['action'] ) 
+		if ( isset( $_GET['action'] ) && 'error_scrape' == $_GET['action'] )
 		{
 			echo "{$error_msg}\n";
 			if ( $fatal_error )
 				exit;
 		}
-		else 
+		else
 		{
 			trigger_error( $error_msg, $error_type );
 		}
 	}
-} // WP_Strip_Naked_Setup
-
-} // endif;
+}
