@@ -34,7 +34,7 @@ Not needed.
 
 h4. Authors
 
-visit "Franz Josef Kaiser":https://unserkaiser.com/ at his blog | or "at his Github Account":https://github.com/franz-josef-kaiser | or "get social at G+":https://plus.google.com/u/0/107110219316412982437
+visit "Franz Josef Kaiser":https://unserkaiser.com/ at his blog | or "at his Github Account":https://github.com/franz-josef-kaiser | or "get social at G+":https://plus.google.com/u/0/107110219316412982437?rel=author
 
 h4. Screenshot
 
