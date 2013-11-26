@@ -50,3 +50,5 @@ h4. Changelog
 * _v0.3_ Adds Settings, removes Feed & Pages on demand. New (De-)Activate/Uninstall Class
 * _v0.2_ Removes feed
 * _v0.1_ First version - Draft
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/franz-josef-kaiser/wp-strip-naked/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
