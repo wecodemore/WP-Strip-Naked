@@ -1,6 +1,6 @@
 <img title="WP Strip Naked Logo" src="https://github.com/franz-josef-kaiser/WP-Strip-Naked/raw/master/strip-naked-logo.png" />
 
-h2. WP Strip Naked
+# WP Strip Naked
 
 **Version: _v0.5_**
 
@@ -8,7 +8,7 @@ Strips down WP to it's bare essentials. Removes everything that's not needed to 
 
 ----------------------------------------------------------------
 
-h3. Functionality
+## Functionality
 
 The Plugin removes:
 
@@ -23,26 +23,26 @@ The Plugin removes:
  * All Settings admin menu items and replaces them with the "All Settings" Page and makes it only accessible for 'manage_options' capability
  * Removes the "capitalPdangit" filter from content, title and comment text, in case you add those filter in CPT related stuff
 
-h3. How-To
+## How-To
 
 You can now remove the "Feeds" and "Pages" post type with switching 0/1 on the "All Settings" page.
 Plugin Settings fields are highlighted in blue.
 
-h3. Languages
+## Languages
 
 Not needed.
 
-h4. Authors
+### Authors
 
 visit "Franz Josef Kaiser":https://unserkaiser.com/ at his blog | or "at his Github Account":https://github.com/franz-josef-kaiser | or "get social at G+":https://plus.google.com/u/0/107110219316412982437
 
-h4. Screenshot
+### Screenshot
 
 <img title="Stripped admin UI" src="https://github.com/franz-josef-kaiser/WP-Strip-Naked/raw/master/screenshot-1.jpg" />
 
-----------------------------------------------------------------
+-----
 
-h4. Changelog
+### Changelog
 
 * _v0.5_ Removed PHP 4 compatibility. Moved single filters to a function. Fixed a small bug.
 * _v0.4_ Move Capital P Dangit filters to a single function
@@ -50,3 +50,5 @@ h4. Changelog
 * _v0.3_ Adds Settings, removes Feed & Pages on demand. New (De-)Activate/Uninstall Class
 * _v0.2_ Removes feed
 * _v0.1_ First version - Draft
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/franz-josef-kaiser/wp-strip-naked/trend.png)](https://bitdeli.com/free “Bitdeli Badge”)
