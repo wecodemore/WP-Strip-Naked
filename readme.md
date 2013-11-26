@@ -34,7 +34,7 @@ Not needed.
 
 ### Authors
 
-visit "Franz Josef Kaiser":https://unserkaiser.com/ at his blog | or "at his Github Account":https://github.com/franz-josef-kaiser | or "get social at G+":https://plus.google.com/u/0/107110219316412982437
+visit [Franz Josef Kaiser at his blog](https://unserkaiser.com/) | or [at his Github Account](https://github.com/franz-josef-kaiser) | or [get social on G+](https://plus.google.com/+FranzJosefKaiser) or [on Twitter](https://twitter.com/unserkaiser).
 
 ### Screenshot
 
@@ -51,4 +51,4 @@ visit "Franz Josef Kaiser":https://unserkaiser.com/ at his blog | or "at his Git
 * _v0.2_ Removes feed
 * _v0.1_ First version - Draft
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/franz-josef-kaiser/wp-strip-naked/trend.png)](https://bitdeli.com/free “Bitdeli Badge”)
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/franz-josef-kaiser/wp-strip-naked/trend.png)](https://bitdeli.com/free �Bitdeli Badge�)
