@@ -71,8 +71,11 @@ class WP_Strip_Naked
 
 		add_action( 'init', array( $this, 'capital_p_bangit' ) );
 
-		add_action( 'init', array( $this, 'taxonomies' ) );
-		add_action( 'init', array( $this, 'post_types' ) );
+		// Disabled this line due to problems if deleting attachments
+		// add_action( 'init', array( $this, 'taxonomies' ) );
+
+		// Disabled this line due to compatibility probems with core other plugins
+		// add_action( 'init', array( $this, 'post_types' ) );
 
 		add_action( 'wp_before_admin_bar_render',  array( $this, 'admin_bar' ) );
 
