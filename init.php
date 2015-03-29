@@ -71,8 +71,11 @@ class WP_Strip_Naked
 
 		add_action( 'init', array( $this, 'capital_p_bangit' ) );
 
-		add_action( 'init', array( $this, 'taxonomies' ) );
-		add_action( 'init', array( $this, 'post_types' ) );
+		// Disabled this line due to problems if deleting attachments
+		// add_action( 'init', array( $this, 'taxonomies' ) );
+
+		// Disabled this line due to compatibility probems with core other plugins
+		// add_action( 'init', array( $this, 'post_types' ) );
 
 		add_action( 'wp_before_admin_bar_render',  array( $this, 'admin_bar' ) );
 
@@ -293,26 +296,31 @@ EOF;
 			remove_menu_page( 'edit-comments.php' );
 		# <<<< Main menu items
 
-		// Add all options page instead
-		add_submenu_page(
-			 'options-general.php'
-			,__( 'All Options' )
-			,__( 'All Settings' )
-			,'manage_options'
-			,'options.php'
-		);
-		$opt_first = reset( array_keys( $submenu[ 'options-general.php' ] ) );
-		// (Re)move
-		foreach ( $submenu[ 'options-general.php' ] as $i => $item )
-		{
-			if ( 'options.php' == $item[2] )
+		if( current_user_can( "manage_options") ) {
+
+			// Add "All Settings" page instead of the different options
+			add_submenu_page(
+				 'options-general.php'
+				,__( 'All Options' )
+				,__( 'All Settings' )
+				,'manage_options'
+				,'options.php'
+			);
+			$options_keys = array_keys( $submenu[ 'options-general.php' ] );
+			$opt_first = reset( $options_keys );
+			// (Re)move
+			foreach ( $submenu[ 'options-general.php' ] as $i => $item )
 			{
-				unset( $submenu[ 'options-general.php' ][ $i ] );
-				$submenu[ 'options-general.php' ][ $opt_first - 1 ] = $item;
+				if ( 'options.php' == $item[2] )
+				{
+					unset( $submenu[ 'options-general.php' ][ $i ] );
+					$submenu[ 'options-general.php' ][ $opt_first - 1 ] = $item;
+				}
 			}
+			// Sort
+			sort( $submenu[ 'options-general.php' ] );
+			
 		}
-		// Sort
-		sort( $submenu[ 'options-general.php' ] );
 
 		return $parent_file;
 	}
